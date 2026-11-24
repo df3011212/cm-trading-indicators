@@ -2,7 +2,8 @@ import { SiteLink as Link } from "./site-link";
 import { ArrowDownToLine, ArrowRight, ExternalLink, Github, Heart, Workflow } from "lucide-react";
 import { description, route, site, t, type Locale } from "@/lib/site";
 import { Architecture } from "./architecture";
-import { MarketChart, MtfTable } from "./charts";
+import { MtfTable } from "./charts";
+import { MarketTerminal } from "./market-terminal";
 import { IndicatorCards } from "./indicators";
 import { FiboRules, PatternLab } from "./lab";
 import { Button } from "./ui/button";
@@ -23,7 +24,7 @@ export function Home({ lang }: { lang: Locale }) {
           {site.github ? <a href={site.github} className="hero-github"><Github size={17} aria-hidden="true" />View on GitHub<ExternalLink size={12} aria-hidden="true" /></a> :
             <span className="hero-github unavailable"><Github size={17} aria-hidden="true" />GitHub · {t(lang, ["連結待提供", "Link pending"])}</span>}
         </div>
-        <div className="hero-visual"><MarketChart lang={lang} /></div>
+        <MarketTerminal lang={lang} />
       </div>
     </section>
     <section id="indicators" className="container content-section">
@@ -40,7 +41,7 @@ export function Home({ lang }: { lang: Locale }) {
       <h3 className="subheading">{t(lang, ["FIBO 更新規則", "FIBO update rules"])}</h3>
       <FiboRules lang={lang} />
     </section>
-    <section className="container content-section">
+    <section id="mtf-demo" className="container content-section">
       <div className="section-heading"><h2>{t(lang, ["多週期監控", "Multi-timeframe monitoring"])}</h2></div>
       <MtfTable lang={lang} />
     </section>

@@ -15,8 +15,8 @@ export const route = (lang: Locale, page = "") => `/${lang === "en" ? "en/" : ""
 export const site = {
   name: "CM Trading Indicators",
   subtitle: "MACD Pattern Recognition & Trading Analysis System",
-  github: process.env.NEXT_PUBLIC_REPOSITORY_URL ?? null,
-  tradingView: null as string | null,
+  github: process.env.NEXT_PUBLIC_REPOSITORY_URL ?? "https://github.com/df3011212/cm-trading-indicators",
+  tradingView: "https://www.tradingview.com/chart/",
   threads: null as string | null,
   patreon: "https://www.patreon.com/16307160/join",
   basePath: process.env.NEXT_PUBLIC_BASE_PATH ?? "",

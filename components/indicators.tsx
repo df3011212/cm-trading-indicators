@@ -2,6 +2,7 @@ import { SiteLink as Link } from "./site-link";
 import { Activity, ArrowDownToLine, ArrowRight, BellRing, ExternalLink, Layers3 } from "lucide-react";
 import { indicators, route, t, type Locale } from "@/lib/site";
 import { Button } from "./ui/button";
+import { IndicatorArtwork } from "./indicator-artwork";
 
 const icons = [Activity, Layers3, BellRing];
 export function IndicatorCards({ lang }: { lang: Locale }) {
@@ -11,6 +12,7 @@ export function IndicatorCards({ lang }: { lang: Locale }) {
       <div className="card-top"><span className="feature-icon"><Icon size={24} aria-hidden="true" /></span><span className="version">{item.version}</span></div>
       <h3>{item.name}</h3><p className="card-role">{t(lang, item.role)}</p>
       <p>{t(lang, item.overview)}</p>
+      <IndicatorArtwork index={index} />
       <ul>{item.features.map((feature) => <li key={feature[1]}>{t(lang, feature)}</li>)}</ul>
       <div className="card-links">
         <Link className="detail-link" href={route(lang, "indicators") + "#" + item.id}>{t(lang, ["查看詳細介紹", "Explore indicator"])} <ArrowRight size={15} aria-hidden="true" /></Link>
