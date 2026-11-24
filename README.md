@@ -27,10 +27,10 @@ npm run preview
 
 ## 維護內容
 
-- `lib/site.ts` 管理三個指標的版本、功能、下載、TradingView 發布頁、版本紀錄、測試狀態、站外連結與同步套裝。
+- `lib/site.ts` 管理三個指標的版本、功能、TradingView 發布頁、版本紀錄、測試狀態與站外連結。
 - `lib/documentation.ts` 管理十一節繁中與英文教學內容。
 - `lib/lessons.ts` 管理 MACD 示意情境與 FIBO 規則。
-- 取得正式 Pine 檔後，先驗證對應版本與檔案，再填入 GitHub Releases 下載網址。若改用 repo 內的靜態來源，放到 `public/`，並在設定中填入包含部署前綴的連結。
+- 核心指標發布網址填入 indicators 的 tradingView 欄位，其他 TradingView 腳本填入 otherIndicators。
 - 版本日以 ISO 8601 `YYYY-MM-DD` 填寫。將經確認的修正與測試結果補進設定。歷史版本可加入 `releaseHistory`。
 - 尚缺正式發布資料的欄位採待公布或尚未發布狀態。相容性目前顯示預定版本配對。
 
@@ -42,6 +42,6 @@ npm run preview
 4. 工作流程會使用 Pages 提供的 base path 和 origin 設定站內路由、canonical 與 Open Graph。首頁／組織站點使用空前綴，專案站點使用儲存庫名稱為前綴。
 5. 使用自訂網域時，在 Pages 設定網域後重新部署。
 
-手動建置也可設定 `NEXT_PUBLIC_BASE_PATH`、`NEXT_PUBLIC_SITE_ORIGIN` 與 `NEXT_PUBLIC_REPOSITORY_URL`。正式站點的 origin 只填 URL 的方案與主機，例如 `https://example.com`。
+手動建置也可設定 `NEXT_PUBLIC_BASE_PATH` 與 `NEXT_PUBLIC_SITE_ORIGIN`。正式站點的 origin 只填 URL 的方案與主機，例如 `https://example.com`。
 
 部署參考見 [GitHub Pages 自訂工作流程](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages) 與 [Next.js 靜態輸出](https://nextjs.org/docs/app/guides/static-exports)。
