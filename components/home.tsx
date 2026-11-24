@@ -1,5 +1,5 @@
 import { SiteLink as Link } from "./site-link";
-import { ArrowRight, ExternalLink, Heart, Workflow } from "lucide-react";
+import { ArrowRight, Workflow } from "lucide-react";
 import { description, route, site, t, type Locale } from "@/lib/site";
 import { Architecture } from "./architecture";
 import { MtfTable } from "./charts";
@@ -20,14 +20,6 @@ export function Home({ lang }: { lang: Locale }) {
           <div className="inline-actions hero-actions">
             <Button asChild variant="primary"><Link href="#indicators">{t(lang, ["探索指標", "Explore indicators"])}<ArrowRight size={17} aria-hidden="true" /></Link></Button>
           </div>
-    <section id="support" className="hero-support">
-      <div className="support-panel">
-        <span className="feature-icon"><Heart size={26} aria-hidden="true" /></span>
-        <div><h2>{t(lang, ["在 Patreon 支持開發", "Support development on Patreon"])}</h2>
-          <p>{t(lang, ["前往 Patreon 訂閱會員或贈送會員資格，支持專案持續開發。", "Join a membership or gift one on Patreon to support ongoing development."])}</p></div>
-        <Button asChild variant="primary"><a href={site.patreon} target="_blank" rel="noopener noreferrer">{t(lang, ["前往 Patreon", "Visit Patreon"])}<ExternalLink size={15} aria-hidden="true" /></a></Button>
-      </div>
-    </section>
         </div>
         <MarketTerminal lang={lang} />
       </div>
