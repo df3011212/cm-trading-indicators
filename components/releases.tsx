@@ -1,15 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowDownToLine, CalendarDays, Package, ScrollText } from "lucide-react";
-import { bundle, indicators, releaseHistory, t, type Locale } from "@/lib/site";
+import { CalendarDays } from "lucide-react";
+import { indicators, releaseHistory, t, type Locale } from "@/lib/site";
 import { Button } from "./ui/button";
-
-const pending = ["尚未發布", "Not yet published"] as const;
-function DownloadLink({ lang, href }: { lang: Locale; href: string | null }) {
-  return href ? <Button asChild variant="primary"><a href={href}><ArrowDownToLine size={15} aria-hidden="true" />{t(lang, ["下載原始碼", "Download source"])}</a></Button> :
-    <span className="release-status"><span />{t(lang, pending)}</span>;
-}
 
 export function Changelog({ lang }: { lang: Locale }) {
   const [filter, setFilter] = useState("all");
@@ -30,24 +24,7 @@ export function Changelog({ lang }: { lang: Locale }) {
           <h3>{t(lang, ["測試狀態", "Testing status"])}</h3><p>{t(lang, item.testing)}</p>
         </div>
       </div>
-      <DownloadLink lang={lang} href={item.download} />
+      <Button asChild><a href={item.tradingView}>TradingView ↗</a></Button>
     </article>)}</div>
   </>;
-}
-
-export function Downloads({ lang }: { lang: Locale }) {
-  return <div className="downloads-grid">
-    {indicators.map((item) => <article key={item.id} id={item.id} className={`panel download-card accent-${item.color}`}>
-      <div className="card-top"><span className="feature-icon"><ScrollText size={22} aria-hidden="true" /></span><span className="version">{item.version}</span></div>
-      <h2>{item.name}</h2><p>{t(lang, item.role)}</p><p>Pine Script v6 · TradingView</p>
-      <p>{t(lang, ["預定配對", "Target pairing"])} · {indicators.filter(({ id }) => id !== item.id).map(({ name, version }) => name + " " + version).join(" / ")}</p>
-      <DownloadLink lang={lang} href={item.download} />
-    </article>)}
-    <article id="bundle" className="panel download-card accent-blue">
-      <div className="card-top"><span className="feature-icon"><Package size={22} aria-hidden="true" /></span><span className="version">{bundle.format}</span></div>
-      <h2>{t(lang, ["三個指標同步套裝", "Three-indicator bundle"])}</h2><p>TradingView · Pine Script v6</p>
-      <p>{indicators.map(({ name, version }) => name + " " + version).join(" / ")}</p>
-      {bundle.url ? <Button asChild variant="primary"><a href={bundle.url}><ArrowDownToLine size={15} aria-hidden="true" />{t(lang, ["下載 ZIP", "Download ZIP"])}</a></Button> : <DownloadLink lang={lang} href={null} />}
-    </article>
-  </div>;
 }

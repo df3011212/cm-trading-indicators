@@ -11,7 +11,7 @@ export function Footer({ lang }: { lang: Locale }) {
       <div className="footer-top">
         <Link href={lang === "en" ? "/en/" : "/"} className="brand"><AnalyticsMark /> {site.name}</Link>
         <div className="footer-links">
-          {([["GitHub", site.github], ["TradingView", site.tradingView], ["Threads", site.threads]] as const).map(([label, url]) =>
+          {([["TradingView", site.tradingView], ["Threads", site.threads]] as const).map(([label, url]) =>
             url ? <a key={label} href={url}>{label}</a> : <span key={label} title={t(lang, ["尚未提供連結", "Link pending"])}>{label}</span>)}
         </div>
       </div>

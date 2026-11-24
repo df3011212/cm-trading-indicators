@@ -3,7 +3,7 @@
 import { useState, type ReactNode } from "react";
 import { SiteLink as Link } from "./site-link";
 import { usePathname } from "next/navigation";
-import { ChartNoAxesCombined, Github, Globe2, Menu, X } from "lucide-react";
+import { ChartNoAxesCombined, Globe2, Menu, X } from "lucide-react";
 import { labels, pages, route, site, t, type Locale } from "@/lib/site";
 
 export function Header({ lang, mark }: { lang: Locale; mark: ReactNode }) {
@@ -13,7 +13,6 @@ export function Header({ lang, mark }: { lang: Locale; mark: ReactNode }) {
   const page = pages.find((item) => item === parts[lang === "en" ? 1 : 0]);
   const alternate = lang === "en" ? "zh-TW" : "en";
   const external = [
-    { name: "GitHub", href: site.github, Icon: Github },
     { name: "TradingView", href: site.tradingView, Icon: ChartNoAxesCombined },
   ];
   return <header className="site-header" onKeyDown={(event) => {

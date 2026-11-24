@@ -372,3 +372,11 @@ a.hero-github:hover { color:white; }
   .plot-marker { font-size:15px; }
 }
 @media(max-width:359px){ .plot-legend a { font-size:8px; } .plot-legend { gap:5px; } }
+
+.hero-support { margin-top:24px; }
+.hero-support .support-panel { grid-template-columns:auto 1fr; gap:10px 13px; padding:15px; }
+.hero-support h2 { font-size:18px; }
+.hero-support p { font-size:13px; }
+.hero-support .button { grid-column:2; justify-self:start; min-height:36px; }
+.additional-scripts { display:grid; gap:12px; margin-top:16px; }
+.detail-stack article section h3 { margin-top:18px; }

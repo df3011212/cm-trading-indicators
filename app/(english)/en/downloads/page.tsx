@@ -1,4 +1,0 @@
-import { ContentPage } from "@/components/content-page";
-import { metadataFor } from "@/lib/metadata";
-export const metadata = metadataFor("en", "downloads");
-export default function Page() { return <ContentPage lang="en" page="downloads" />; }

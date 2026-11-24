@@ -49,7 +49,10 @@ export function marketDemo(timeframe: Timeframe) {
   const fast = ema(prices, 12);
   const slow = ema(prices, 26);
   const macd = fast.map((value, i) => value - slow[i]);
-  const signal = ema(macd, 9);
+  const signal = macd.map((_, index) => {
+    const window = macd.slice(Math.max(0, index - 8), index + 1);
+    return window.reduce((sum, value) => sum + value, 0) / window.length;
+  });
 
   return {
     candles: candles.slice(warmup),

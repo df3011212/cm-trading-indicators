@@ -1,5 +1,5 @@
 import { SiteLink as Link } from "./site-link";
-import { ArrowDownToLine, ArrowRight, ExternalLink, Github, Heart, Workflow } from "lucide-react";
+import { ArrowRight, ExternalLink, Heart, Workflow } from "lucide-react";
 import { description, route, site, t, type Locale } from "@/lib/site";
 import { Architecture } from "./architecture";
 import { MtfTable } from "./charts";
@@ -19,10 +19,15 @@ export function Home({ lang }: { lang: Locale }) {
           <p className="hero-description">{t(lang, description)}</p>
           <div className="inline-actions hero-actions">
             <Button asChild variant="primary"><Link href="#indicators">{t(lang, ["探索指標", "Explore indicators"])}<ArrowRight size={17} aria-hidden="true" /></Link></Button>
-            <Button asChild><Link href={route(lang, "downloads")}><ArrowDownToLine size={16} aria-hidden="true" />{t(lang, ["下載最新版本", "Download latest"])} </Link></Button>
           </div>
-          {site.github ? <a href={site.github} className="hero-github"><Github size={17} aria-hidden="true" />View on GitHub<ExternalLink size={12} aria-hidden="true" /></a> :
-            <span className="hero-github unavailable"><Github size={17} aria-hidden="true" />GitHub · {t(lang, ["連結待提供", "Link pending"])}</span>}
+    <section id="support" className="hero-support">
+      <div className="support-panel">
+        <span className="feature-icon"><Heart size={26} aria-hidden="true" /></span>
+        <div><h2>{t(lang, ["在 Patreon 支持開發", "Support development on Patreon"])}</h2>
+          <p>{t(lang, ["前往 Patreon 訂閱會員或贈送會員資格，支持專案持續開發。", "Join a membership or gift one on Patreon to support ongoing development."])}</p></div>
+        <Button asChild variant="primary"><a href={site.patreon} target="_blank" rel="noopener noreferrer">{t(lang, ["前往 Patreon", "Visit Patreon"])}<ExternalLink size={15} aria-hidden="true" /></a></Button>
+      </div>
+    </section>
         </div>
         <MarketTerminal lang={lang} />
       </div>
@@ -44,14 +49,6 @@ export function Home({ lang }: { lang: Locale }) {
     <section id="mtf-demo" className="container content-section">
       <div className="section-heading"><h2>{t(lang, ["多週期監控", "Multi-timeframe monitoring"])}</h2></div>
       <MtfTable lang={lang} />
-    </section>
-    <section id="support" className="container content-section support-section">
-      <div className="support-panel">
-        <span className="feature-icon"><Heart size={26} aria-hidden="true" /></span>
-        <div><h2>{t(lang, ["在 Patreon 支持開發", "Support development on Patreon"])}</h2>
-          <p>{t(lang, ["前往 Patreon 訂閱會員或贈送會員資格，支持專案持續開發。", "Join a membership or gift one on Patreon to support ongoing development."])}</p></div>
-        <Button asChild variant="primary"><a href={site.patreon} target="_blank" rel="noopener noreferrer">{t(lang, ["前往 Patreon", "Visit Patreon"])}<ExternalLink size={15} aria-hidden="true" /></a></Button>
-      </div>
     </section>
   </>;
 }

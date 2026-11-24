@@ -2,8 +2,8 @@ import { officialDocs, type Copy } from "./site";
 type Guide = { id: string; title: Copy; body: Copy[]; link?: string; linkLabel?: Copy };
 export const guides: Guide[] = [
   { id:"install", title:["TradingView 安裝","Install on TradingView"], body:[
-    ["下載中心發布原始碼後，先選擇需要的模組與版本。開啟 TradingView 的 Supercharts，在 Pine Editor 建立新指標並貼上整份程式碼。","Once source files are available in Downloads, select your module and version. Open TradingView Supercharts, create an indicator in Pine Editor, and paste the complete script."],
-    ["儲存並加入圖表，確認指標名稱與版本。若日後發布 TradingView 腳本，也可從指標面板開啟官方發布頁。","Save and add it to the chart, then check the indicator name and version. When published TradingView listings are available, use the links on the indicator pages."],
+    ["前往「指標介紹與下載」，選擇指標後開啟 TradingView 發布頁。","Open Indicators & Downloads and select the TradingView listing for your indicator."],
+    ["登入 TradingView，依發布頁顯示的使用方式將指標加入圖表，再核對名稱與版本。","Sign in to TradingView, follow the listing’s access options, and check the indicator name and version on your chart."],
   ], link:officialDocs.editor, linkLabel:["Pine Script 官方入門","Official Pine Script guide"] },
   { id:"pine-editor", title:["使用 Pine Editor","Use Pine Editor"], body:[
     ["確認第一行是 //@version=6，每個模組使用各自的腳本。修改後先儲存，再按加入圖表或更新圖表。","Check that the script starts with //@version=6 and keep each module in its own script. Save changes, then add or update the indicator on the chart."],
@@ -38,11 +38,11 @@ export const guides: Guide[] = [
     ["若條件使用 alert()，頻率由腳本控制。更新腳本或設定後，重新建立警報以套用新版配置。","For alert() conditions, the script controls frequency. Recreate alerts after updating the script or inputs to apply the new configuration."],
   ], link:officialDocs.alerts, linkLabel:["TradingView 技術警報說明","TradingView technical alerts guide"] },
   { id:"version-sync", title:["同步三個指標版本","Synchronize indicator versions"], body:[
-    ["以下載中心標示的套裝版本為基準，將三個模組個別更新至同一配對。逐一檢查名稱、版本及設定。","Use the bundle pairing shown in Downloads and update each module to that version. Check names, versions, and settings individually."],
+    ["參照各指標發布頁核對版本與設定，將三個模組更新至相容版本。","Check the version and settings on each listing and use compatible versions of the three modules."],
     ["以相同商品與週期比對型態標籤、FIBO 方向與 MTF 事件，再重新建立使用舊設定的警報。","Compare pattern labels, FIBO direction, and MTF events on the same instrument and timeframe, then recreate alerts using obsolete settings."],
   ] },
   { id:"faq", title:["常見問題與錯誤排除","FAQ and troubleshooting"], body:[
-    ["找不到下載？尚未發布的檔案會顯示狀態，開放後會在下載中心上架。","Missing a download? Pending files display their release status and will appear in Downloads when available."],
+    ["如何取得指標？從「指標介紹與下載」開啟對應的 TradingView 發布頁。","How do I access an indicator? Open its TradingView listing from Indicators & Downloads."],
     ["模組標籤不一致？先對照版本、商品、週期與 K 棒確認狀態，記錄發生時間與前後標籤。","Labels disagree? Check versions, instrument, timeframe, and bar confirmation. Record the time and surrounding labels."],
     ["警報沒有觸發？確認警報開啟、事件條件正確且通知權限可用，再檢查警報日誌與版號。","Alert missing? Check that it is enabled, the condition is correct, and notification permissions are available. Review the alert log and script version."],
   ] },
