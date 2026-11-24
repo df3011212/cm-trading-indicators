@@ -24,8 +24,8 @@ export function Header({ lang, mark }: { lang: Locale; mark: ReactNode }) {
     <div className="container header-inner">
       <Link href={route(lang)} className="brand" onClick={() => setOpen(false)}>{mark}<span>CM Trading <span className="brand-secondary">Indicators</span></span></Link>
       <a className="header-patreon" href={site.patreon} target="_blank" rel="noopener noreferrer"
-        aria-label={t(lang, ["在 Patreon 支持開發", "Support development on Patreon"])}>
-        <Heart size={16} aria-hidden="true" /><span>Patreon</span>
+        aria-label={t(lang, ["贊助創作者", "Support the creator"])}>
+        <Heart size={16} aria-hidden="true" /><span>{t(lang, ["贊助創作者", "Support the creator"])}</span>
       </a>
       <button id="menu-toggle" className="menu-toggle" type="button" aria-controls="site-nav" aria-expanded={open}
         aria-label={t(lang, [open ? "關閉選單" : "開啟選單", open ? "Close menu" : "Open menu"])} onClick={() => setOpen(!open)}>
