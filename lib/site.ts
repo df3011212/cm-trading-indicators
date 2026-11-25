@@ -25,7 +25,7 @@ type Indicator = {
   features: Copy[]; usage: Copy; sections: { title: Copy; body: Copy[] }[]; note: Copy; tradingView: string;
   title?: Copy; highlights?: Copy[]; date: string | null; fixes: Copy[] | null; testing: Copy;
 };
-export const indicators: Indicator[] = [
+const previousIndicators: Indicator[] = [
   {
     "id": "macd-pattern",
     "name": "CM_MACD_PATTERN",
@@ -81,8 +81,8 @@ export const indicators: Indicator[] = [
         ],
         "body": [
           [
-            "MACD 採 EMA 12／26，Signal 採 SMA 9。雙頂雙底相似度預設 8%。零軸正式確認預設連續 8 根 K 棒收盤。",
-            "MACD uses EMA 12/26 with a 9-period SMA signal. Double-top and double-bottom similarity defaults to 8%. Zero-line confirmation defaults to eight consecutive bar closes."
+            "MACD 採 EMA 12／26，Signal 採 SMA 9。雙頂雙底相似度預設 8%。零軸正式確認預設連續 6 根 K 棒收盤。",
+            "MACD uses EMA 12/26 with a 9-period SMA signal. Double-top and double-bottom similarity defaults to 8%. Zero-line confirmation defaults to six consecutive bar closes."
           ]
         ]
       }
@@ -641,13 +641,29 @@ const historicalReleases: Release[] = [
     ]
   }
 ];
+const recentUpdates = [...patternUpdates, ...companionUpdates];
+
+export const indicators: Indicator[] = previousIndicators.map((indicator) => {
+  const latest = recentUpdates.find(({ id }) => id === indicator.id);
+  if (!latest) return indicator;
+
+  return {
+    ...indicator,
+    version: latest.version,
+    date: latest.date,
+    testing: latest.testing,
+    title: latest.title ?? undefined,
+    highlights: latest.highlights,
+    fixes: latest.fixes,
+  };
+});
+
 export const releaseHistory: Release[] = [
-  ...patternUpdates,
-  ...companionUpdates,
-  ...indicators.filter((item) => item.highlights).map((item) => ({
+  ...recentUpdates,
+  ...previousIndicators.filter((item) => item.highlights).map((item) => ({
     ...item,
     highlights: item.highlights ?? [],
-    compatibility: indicators.filter(({ id }) => id !== item.id),
+    compatibility: previousIndicators.filter(({ id }) => id !== item.id),
   })),
   ...historicalReleases,
 ];
