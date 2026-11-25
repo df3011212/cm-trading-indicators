@@ -351,14 +351,14 @@ type Release = Pick<Indicator, "id" | "name" | "version" | "color" | "date" | "t
   highlights: Copy[];
   compatibility: { name: string; version: string }[];
 };
-const observationUpdates: Release[] = [
+const patternUpdates: Release[] = [
   {
     id: "macd-pattern",
     name: "CM_MACD_PATTERN",
     version: "V3.31",
     color: "blue",
     date: "2026-11-25",
-    title: ["雙頂／雙底顯示修正（觀察中）", "Double-top and double-bottom display fixes (under observation)"],
+    title: ["正式更新｜雙頂／雙底顯示修正", "Official update: double-top and double-bottom display fixes"],
     highlights: [
       [
         "保留 V3.30 的暫定第1點等待規則。合格的補充配對先顯示暫定雙頂／雙底，完成零軸確認後轉為正式標籤。",
@@ -415,7 +415,7 @@ const companionUpdates: Release[] = [
     version: "V2.1",
     color: "gold",
     date: "2026-11-25",
-    title: ["同步 MACD 型態規則（觀察中）", "MACD pattern rule alignment (under observation)"],
+    title: ["正式更新｜同步 MACD 型態規則", "Official update: MACD pattern rule alignment"],
     highlights: [
       [
         "依 CM_MACD_PATTERN V3.31，同步圖表週期及跨週期的暫定第1點等待規則。預設等到下一個同向交叉收盤再判定，相似度仍預設 8%。",
@@ -440,7 +440,7 @@ const companionUpdates: Release[] = [
     version: "V2.6",
     color: "green",
     date: "2026-11-25",
-    title: ["同步跨週期型態規則（觀察中）", "Multi-timeframe pattern rule alignment (under observation)"],
+    title: ["正式更新｜同步跨週期型態規則", "Official update: multi-timeframe pattern rule alignment"],
     highlights: [
       [
         "依 CM_MACD_PATTERN V3.31，同步圖表週期及跨週期的暫定第1點等待規則，並開放調整雙頂／雙底相似度，預設為 8%。",
@@ -642,7 +642,7 @@ const historicalReleases: Release[] = [
   }
 ];
 export const releaseHistory: Release[] = [
-  ...observationUpdates,
+  ...patternUpdates,
   ...companionUpdates,
   ...indicators.filter((item) => item.highlights).map((item) => ({
     ...item,
