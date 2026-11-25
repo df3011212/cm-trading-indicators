@@ -345,11 +345,122 @@ export const otherIndicators = [
     "url": "https://tw.tradingview.com/script/v9sZVYZ9/"
   }
 ];
-type Release = Pick<Indicator, "id" | "name" | "version" | "color" | "date" | "testing" | "fixes" | "tradingView"> & {
+type Release = Pick<Indicator, "id" | "name" | "version" | "color" | "date" | "testing" | "fixes"> & {
+  tradingView?: Indicator["tradingView"];
   title?: Copy | null;
   highlights: Copy[];
   compatibility: { name: string; version: string }[];
 };
+const observationUpdates: Release[] = [
+  {
+    id: "macd-pattern",
+    name: "CM_MACD_PATTERN",
+    version: "V3.31",
+    color: "blue",
+    date: "2026-11-25",
+    title: ["雙頂／雙底顯示修正（觀察中）", "Double-top and double-bottom display fixes (under observation)"],
+    highlights: [
+      [
+        "保留 V3.30 的暫定第1點等待規則。合格的補充配對先顯示暫定雙頂／雙底，完成零軸確認後轉為正式標籤。",
+        "Keeps the V3.30 Point 1 waiting rule. Qualifying supplemental pairs appear as provisional double tops or bottoms and receive confirmed labels after zero-line confirmation.",
+      ],
+      [
+        "將滑鼠移到補充標籤上，可查看兩點的 MACD 值、差異百分比及確認狀態。",
+        "Hover over a supplemental label to see both MACD values, the percentage difference and the confirmation status.",
+      ],
+    ],
+    fixes: [
+      [
+        "以兩個交叉點的時間核對配對。原生標籤只會取代同一組補充標籤，同側其他合格配對仍可顯示。",
+        "Matches pairs by both crossover timestamps. A native label replaces only the supplemental label for the same pair, leaving other qualifying pairs on that side eligible for display.",
+      ],
+    ],
+    testing: [
+      "已完成靜態比對及 14 項雙向條件檢查。TradingView 編譯與圖表回放待確認。",
+      "Source comparison and 14 bullish and bearish condition checks passed. TradingView compilation and chart replay are pending.",
+    ],
+    compatibility: [],
+  },
+  {
+    id: "macd-pattern",
+    name: "CM_MACD_PATTERN",
+    version: "V3.30",
+    color: "blue",
+    date: "2026-11-25",
+    title: ["暫定第1點等待同向交叉", "Provisional Point 1 waits for the next same-direction crossover"],
+    highlights: [
+      [
+        "新增「暫定第1點等待下一個同向交叉」開關，預設開啟。關閉可切回逐根收盤判定的規則。",
+        "The option to keep provisional Point 1 until the next same-direction crossover is on by default. Turn it off to restore the bar-by-bar invalidation rule.",
+      ],
+    ],
+    fixes: [
+      [
+        "在暫定第2點尚未形成時，保留第1點至下一個同向交叉收盤。相似度預設 8%，若新交叉更極端且超過容許差異，才換成新的第1點。",
+        "Before provisional Point 2 forms, Point 1 remains until the next same-direction crossover closes. The tolerance defaults to 8%. A more extreme crossover replaces Point 1 if the difference exceeds that tolerance.",
+      ],
+    ],
+    testing: [
+      "已完成靜態比對及 16 項雙向條件檢查。",
+      "Source comparison and 16 bullish and bearish condition checks passed.",
+    ],
+    compatibility: [],
+  },
+];
+
+const companionUpdates: Release[] = [
+  {
+    id: "auto-fibo",
+    name: "CM_AUTO_FIBO",
+    version: "V2.1",
+    color: "gold",
+    date: "2026-11-25",
+    title: ["同步 MACD 型態規則（觀察中）", "MACD pattern rule alignment (under observation)"],
+    highlights: [
+      [
+        "依 CM_MACD_PATTERN V3.31，同步圖表週期及跨週期的暫定第1點等待規則。預設等到下一個同向交叉收盤再判定，相似度仍預設 8%。",
+        "Aligns provisional Point 1 handling on the chart and across timeframes with CM_MACD_PATTERN V3.31. By default, the decision waits until the next same-direction crossover closes, with an 8% similarity tolerance.",
+      ],
+    ],
+    fixes: [
+      [
+        "暫定第2點出妖後，從後續符合條件的交叉點重新搜尋。斐波那契錨點、比例和繪圖沿用既有規則。",
+        "After a provisional Point 2 breakout, the search resumes at a later qualifying crossover. Fibonacci anchors, ratios and drawing rules are unchanged.",
+      ],
+    ],
+    testing: [
+      "靜態比對及條件檢查已通過。TradingView 編譯與圖表回放待確認。",
+      "Source comparison and condition checks passed. TradingView compilation and chart replay are pending.",
+    ],
+    compatibility: [],
+  },
+  {
+    id: "macd-alerts",
+    name: "CM_MACD_ALERTS",
+    version: "V2.6",
+    color: "green",
+    date: "2026-11-25",
+    title: ["同步跨週期型態規則（觀察中）", "Multi-timeframe pattern rule alignment (under observation)"],
+    highlights: [
+      [
+        "依 CM_MACD_PATTERN V3.31，同步圖表週期及跨週期的暫定第1點等待規則，並開放調整雙頂／雙底相似度，預設為 8%。",
+        "Aligns provisional Point 1 handling on the chart and across timeframes with CM_MACD_PATTERN V3.31 and makes the double-top and double-bottom similarity tolerance configurable, with an 8% default.",
+      ],
+    ],
+    fixes: [
+      [
+        "暫定第2點出妖後，從後續符合條件的交叉點重新搜尋。既有警報類型與訊息格式照舊。",
+        "After a provisional Point 2 breakout, the search resumes at a later qualifying crossover. Existing alert types and message formats are unchanged.",
+      ],
+    ],
+    testing: [
+      "靜態比對及條件檢查已通過。TradingView 編譯、圖表回放及警報實測待確認。",
+      "Source comparison and condition checks passed. TradingView compilation, chart replay and live alert testing are pending.",
+    ],
+    compatibility: [],
+  },
+];
+
 const historicalReleases: Release[] = [
   {
     "id": "macd-pattern",
@@ -531,6 +642,8 @@ const historicalReleases: Release[] = [
   }
 ];
 export const releaseHistory: Release[] = [
+  ...observationUpdates,
+  ...companionUpdates,
   ...indicators.filter((item) => item.highlights).map((item) => ({
     ...item,
     highlights: item.highlights ?? [],

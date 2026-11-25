@@ -21,11 +21,11 @@ export function Changelog({ lang }: { lang: Locale }) {
       <div className="release-detail">
         <div><h3>{t(lang, item.title ? ["更新內容", "Update notes"] : ["版本功能", "Release features"])}</h3><ul className="feature-list">{item.highlights.map((feature) => <li key={feature[1]}>{t(lang, feature)}</li>)}</ul></div>
         <div><h3>{t(lang, ["修正項目", "Fixes"])}</h3>{item.fixes?.length ? <ul className="feature-list">{item.fixes.map((fix) => <li key={fix[1]}>{t(lang, fix)}</li>)}</ul> : <p>{t(lang, ["待提供版本修正紀錄", "Fix notes pending"])}</p>}
-          <h3>{t(lang, ["預定相容版本", "Target compatibility"])}</h3><p>{item.compatibility.map(({ name, version }) => name + " " + version).join(" · ")}</p>
+          <h3>{t(lang, ["預定相容版本", "Target compatibility"])}</h3><p>{item.compatibility.length ? item.compatibility.map(({ name, version }) => name + " " + version).join(" · ") : t(lang, ["與其他指標的相容性待確認", "Compatibility with other indicators is pending"])}</p>
           <h3>{t(lang, ["測試狀態", "Testing status"])}</h3><p>{t(lang, item.testing)}</p>
         </div>
       </div>
-      <Button asChild><a href={item.tradingView}>TradingView ↗</a></Button>
+      {item.tradingView && <Button asChild><a href={item.tradingView}>TradingView ↗</a></Button>}
     </article>)}</div>
   </>;
 }
