@@ -31,7 +31,7 @@ export const guides: Guide[] = [
   ] },
   { id:"multi-timeframe", title:["讀取多週期表格","Read the multi-timeframe table"], body:[
     ["比較 5M／15M／1H／4H／1D 各列的前一次有效標籤與最新 MACD 標籤。藍色底列表示當前週期。","Compare previous valid and latest MACD labels across 5M / 15M / 1H / 4H / 1D. The blue row marks the current timeframe."],
-    ["同向欄用來觀察多空共振。切換週期時，對照相同市場與已確認 K 棒，並留意完整跨週期同步仍在驗證。","Use the alignment column to inspect directional agreement. Compare the same market and confirmed bars when switching timeframes. Full cross-timeframe synchronization remains under validation."],
+    ["同向欄用來觀察多空共振。切換週期時，對照相同市場與已確認 K 棒。依作者測試，V1.9 已通過本次五週期切換及標籤一致性驗證。","Use the alignment column to inspect directional agreement. Compare the same market and confirmed bars when switching timeframes. The author reports that V1.9 passed the current five-timeframe switching and label consistency test."],
   ] },
   { id:"alerts", title:["設定 TradingView 警報","Set TradingView alerts"], body:[
     ["加入 ALERTS 指標後，開啟建立警報視窗，在條件選擇該指標與所需事件，再設定通知方式。","After adding ALERTS, open Create alert, select the indicator and event under Condition, then choose your notification method."],

@@ -16,9 +16,10 @@ export function Changelog({ lang }: { lang: Locale }) {
     </div>
     <div className="timeline" aria-live="polite">{releases.map((item) => <article className={`panel timeline-item accent-${item.color}`} key={item.id + item.version}>
       <span className="timeline-dot" /><div className="detail-heading"><h2>{item.name}</h2><span className="version">{item.version}</span></div>
-      <p className="release-date"><CalendarDays size={16} aria-hidden="true" />{item.date ? <time dateTime={item.date}>{item.date}</time> : t(lang, ["發布日期待公布", "Release date pending"])}</p>
+      {item.title && <h3>{t(lang, item.title)}</h3>}
+      <p className="release-date"><CalendarDays size={16} aria-hidden="true" />{item.date ? <time dateTime={item.date}>{t(lang, ["更新日期", "Updated"])} · {item.date}</time> : t(lang, ["發布日期待公布", "Release date pending"])}</p>
       <div className="release-detail">
-        <div><h3>{t(lang, ["版本功能", "Release features"])}</h3><ul className="feature-list">{item.highlights.map((feature) => <li key={feature[1]}>{t(lang, feature)}</li>)}</ul></div>
+        <div><h3>{t(lang, item.title ? ["更新內容", "Update notes"] : ["版本功能", "Release features"])}</h3><ul className="feature-list">{item.highlights.map((feature) => <li key={feature[1]}>{t(lang, feature)}</li>)}</ul></div>
         <div><h3>{t(lang, ["修正項目", "Fixes"])}</h3>{item.fixes?.length ? <ul className="feature-list">{item.fixes.map((fix) => <li key={fix[1]}>{t(lang, fix)}</li>)}</ul> : <p>{t(lang, ["待提供版本修正紀錄", "Fix notes pending"])}</p>}
           <h3>{t(lang, ["預定相容版本", "Target compatibility"])}</h3><p>{item.compatibility.map(({ name, version }) => name + " " + version).join(" · ")}</p>
           <h3>{t(lang, ["測試狀態", "Testing status"])}</h3><p>{t(lang, item.testing)}</p>

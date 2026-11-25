@@ -23,13 +23,13 @@ export const site = {
 type Indicator = {
   id: string; name: string; version: string; color: string; role: Copy; overview: Copy;
   features: Copy[]; usage: Copy; sections: { title: Copy; body: Copy[] }[]; note: Copy; tradingView: string;
-  date: string | null; fixes: Copy[] | null; testing: Copy;
+  title?: Copy; highlights?: Copy[]; date: string | null; fixes: Copy[] | null; testing: Copy;
 };
 export const indicators: Indicator[] = [
   {
     "id": "macd-pattern",
     "name": "CM_MACD_PATTERN",
-    "version": "V3.11",
+    "version": "V3.14",
     "color": "blue",
     "role": [
       "MACD 型態辨識系統",
@@ -67,6 +67,10 @@ export const indicators: Indicator[] = [
       [
         "前一次有效標籤與最新 MACD 標籤診斷表格。",
         "Diagnostic table of the previous valid and latest MACD labels."
+      ],
+      [
+        "新增「顯示該點失效標籤」開關，預設關閉。",
+        "Added an invalidated-point label visibility toggle, disabled by default."
       ]
     ],
     "sections": [
@@ -84,19 +88,41 @@ export const indicators: Indicator[] = [
       }
     ],
     "usage": [
-      "本指標為 CM 系列的核心辨識母版，提供 AUTO FIBO 與 MACD ALERTS 的統一型態辨識基準。",
-      "This indicator provides the common recognition rules for AUTO FIBO and MACD ALERTS."
+      "本指標為 CM 系列的核心辨識母版，提供 AUTO FIBO 與 MACD ALERTS 的統一型態辨識基準。 多週期監控請使用 CM_MACD_ALERTS。",
+      "This indicator provides the common recognition rules for AUTO FIBO and MACD ALERTS. Use CM_MACD_ALERTS for multi-timeframe monitoring."
     ],
     "note": [
       "所有訊號僅供技術分析與交易研究參考，不構成投資建議。",
       "Signals are for technical analysis and trading research. They do not constitute investment advice."
     ],
     "tradingView": "https://tw.tradingview.com/script/0dNCKVeG/",
-    "date": null,
+    "date": "2026-11-25",
     "fixes": null,
     "testing": [
       "尚無公開驗證紀錄",
       "Public test results pending"
+    ],
+    "title": [
+      "程式精簡與顯示優化",
+      "Code simplification and display improvements"
+    ],
+    "highlights": [
+      [
+        "完整移除右上角 MTF 五週期表格、相關設定及跨週期辨識程式碼。",
+        "Removed the integrated MTF table, settings and cross-timeframe calculation engine."
+      ],
+      [
+        "移除右下角週期說明表格。",
+        "Removed the bottom-right timeframe information table."
+      ],
+      [
+        "新增「顯示該點失效標籤」開關，預設關閉。",
+        "Added an invalidated-point label visibility toggle, disabled by default."
+      ],
+      [
+        "多週期監控統一交由 CM_MACD_ALERTS 負責，減少重複運算。",
+        "Centralized multi-timeframe monitoring in CM_MACD_ALERTS to reduce duplicate calculations."
+      ]
     ]
   },
   {
@@ -179,7 +205,7 @@ export const indicators: Indicator[] = [
   {
     "id": "macd-alerts",
     "name": "CM_MACD_ALERTS",
-    "version": "V1.8",
+    "version": "V1.9",
     "color": "green",
     "role": [
       "多週期型態監控與警報系統",
@@ -225,6 +251,10 @@ export const indicators: Indicator[] = [
       [
         "單次響鈴機制。",
         "Single notification per event."
+      ],
+      [
+        "新增來源 K 棒收盤時間及標籤時間診斷資訊。",
+        "Added source-bar close and label timestamp diagnostics."
       ]
     ],
     "sections": [
@@ -266,11 +296,38 @@ export const indicators: Indicator[] = [
       "Alerts assist trading research and technical analysis. They do not constitute buy or sell advice."
     ],
     "tradingView": "https://tw.tradingview.com/script/bwEI9bYB/",
-    "date": null,
-    "fixes": null,
+    "date": "2026-11-25",
+    "fixes": [
+      [
+        "修正 15M 及 4H 在切換圖表週期時，標籤顯示不同步的問題。",
+        "Fixed observed 15M and 4H label inconsistencies when switching chart timeframes."
+      ]
+    ],
     "testing": [
-      "尚無公開驗證紀錄",
-      "Public test results pending"
+      "依作者本次測試，已通過 5M、15M、1H、4H、1D 五週期切換及標籤一致性驗證。",
+      "The author reports that V1.9 passed timeframe switching and label consistency tests across 5M, 15M, 1H, 4H and 1D."
+    ],
+    "title": [
+      "跨週期辨識同步優化",
+      "Cross-timeframe recognition synchronization"
+    ],
+    "highlights": [
+      [
+        "統一同週期與跨週期 MACD 型態辨識引擎。",
+        "Unified chart-timeframe and cross-timeframe recognition engines."
+      ],
+      [
+        "優化「前一次標籤」與「最新 MACD 標籤」辨識及歷史狀態管理。",
+        "Improved previous and latest label tracking and historical state management."
+      ],
+      [
+        "改善跨週期已收盤資料取樣機制。",
+        "Optimized closed-bar data sampling."
+      ],
+      [
+        "新增來源 K 棒收盤時間及標籤時間診斷資訊。",
+        "Added source-bar close and label timestamp diagnostics."
+      ]
     ]
   }
 ];
@@ -288,16 +345,204 @@ export const otherIndicators = [
     "url": "https://tw.tradingview.com/script/v9sZVYZ9/"
   }
 ];
-export const releaseHistory = indicators.map((indicator) => ({
-  ...indicator,
-  highlights: indicator.features,
-  compatibility: indicators.filter(({ id }) => id !== indicator.id),
-}));
+type Release = Pick<Indicator, "id" | "name" | "version" | "color" | "date" | "testing" | "fixes" | "tradingView"> & {
+  title?: Copy | null;
+  highlights: Copy[];
+  compatibility: { name: string; version: string }[];
+};
+const historicalReleases: Release[] = [
+  {
+    "id": "macd-pattern",
+    "name": "CM_MACD_PATTERN",
+    "version": "V3.11",
+    "color": "blue",
+    "date": null,
+    "testing": [
+      "尚無公開驗證紀錄",
+      "Public test results pending"
+    ],
+    "fixes": null,
+    "tradingView": "https://tw.tradingview.com/script/0dNCKVeG/",
+    "title": null,
+    "highlights": [
+      [
+        "自動辨識多空第1點、第2點。",
+        "Automatic bullish and bearish Points 1 and 2."
+      ],
+      [
+        "自動辨識暫定及正式雙頂、雙底。",
+        "Provisional and confirmed double tops and bottoms."
+      ],
+      [
+        "MACD 零軸假突破過濾與確認進度。",
+        "Zero-line false breakout filtering and confirmation progress."
+      ],
+      [
+        "多空出妖及型態失效提示。",
+        "Bullish and bearish invalidation notices."
+      ],
+      [
+        "MACD 水平監控線。",
+        "Horizontal MACD monitoring levels."
+      ],
+      [
+        "歷史型態及出妖背景紀錄。",
+        "Background history of patterns and invalidations."
+      ],
+      [
+        "前一次有效標籤與最新 MACD 標籤診斷表格。",
+        "Diagnostic table of the previous valid and latest MACD labels."
+      ],
+      [
+        "新增「顯示該點失效標籤」開關，預設關閉。",
+        "Added an invalidated-point label visibility toggle, disabled by default."
+      ]
+    ],
+    "compatibility": [
+      {
+        "name": "CM_AUTO_FIBO",
+        "version": "V1.5"
+      },
+      {
+        "name": "CM_MACD_ALERTS",
+        "version": "V1.8"
+      }
+    ]
+  },
+  {
+    "id": "auto-fibo",
+    "name": "CM_AUTO_FIBO",
+    "version": "V1.5",
+    "color": "gold",
+    "date": null,
+    "testing": [
+      "尚無公開驗證紀錄",
+      "Public test results pending"
+    ],
+    "fixes": null,
+    "tradingView": "https://tw.tradingview.com/script/xV5c3COe/",
+    "title": null,
+    "highlights": [
+      [
+        "自動辨識 HH／LL 價格錨點。",
+        "Automatic HH/LL price anchors."
+      ],
+      [
+        "自動繪製多空 FIBO。",
+        "Bullish and bearish FIBO plotting."
+      ],
+      [
+        "暫定與正式 FIBO 顯示。",
+        "Provisional and confirmed levels."
+      ],
+      [
+        "反向 FIBO 0.382～0.702 回調區。",
+        "Reverse 0.382–0.702 retracement zone."
+      ],
+      [
+        "多階段 TP 目標與延伸比例。",
+        "Staged take-profit targets and extension ratios."
+      ],
+      [
+        "歷史 FIBO 組別管理。",
+        "Historical FIBO set management."
+      ],
+      [
+        "多空出妖撤銷機制。",
+        "Removal of invalidated bullish and bearish sets."
+      ]
+    ],
+    "compatibility": [
+      {
+        "name": "CM_MACD_PATTERN",
+        "version": "V3.11"
+      },
+      {
+        "name": "CM_MACD_ALERTS",
+        "version": "V1.8"
+      }
+    ]
+  },
+  {
+    "id": "macd-alerts",
+    "name": "CM_MACD_ALERTS",
+    "version": "V1.8",
+    "color": "green",
+    "date": null,
+    "testing": [
+      "尚無公開驗證紀錄",
+      "Public test results pending"
+    ],
+    "fixes": null,
+    "tradingView": "https://tw.tradingview.com/script/bwEI9bYB/",
+    "title": null,
+    "highlights": [
+      [
+        "5M／15M／1H／4H／1D 五週期監控。",
+        "Monitor 5M, 15M, 1H, 4H and 1D."
+      ],
+      [
+        "前一次有效 MACD 標籤。",
+        "Previous valid MACD label."
+      ],
+      [
+        "最新 MACD 型態標籤。",
+        "Latest MACD pattern label."
+      ],
+      [
+        "多空同向共振 ✓。",
+        "Directional agreement ✓."
+      ],
+      [
+        "暫定型態警報。",
+        "Provisional pattern alerts."
+      ],
+      [
+        "多空出妖警報。",
+        "Bullish and bearish invalidation alerts."
+      ],
+      [
+        "水平監控線觸碰警報。",
+        "Horizontal monitoring line touch alerts."
+      ],
+      [
+        "MACD 零軸 A／B 雙階段警報。",
+        "Two-stage zero-line A/B alerts."
+      ],
+      [
+        "單次響鈴機制。",
+        "Single notification per event."
+      ],
+      [
+        "新增來源 K 棒收盤時間及標籤時間診斷資訊。",
+        "Added source-bar close and label timestamp diagnostics."
+      ]
+    ],
+    "compatibility": [
+      {
+        "name": "CM_MACD_PATTERN",
+        "version": "V3.11"
+      },
+      {
+        "name": "CM_AUTO_FIBO",
+        "version": "V1.5"
+      }
+    ]
+  }
+];
+export const releaseHistory: Release[] = [
+  ...indicators.filter((item) => item.highlights).map((item) => ({
+    ...item,
+    highlights: item.highlights ?? [],
+    compatibility: indicators.filter(({ id }) => id !== item.id),
+  })),
+  ...historicalReleases,
+];
 export const description: Copy = [
   "CM Trading Indicators 是一套以 MACD 型態辨識為核心的模組化交易分析系統，整合自動斐波那契、多週期監控與警報通知，協助交易者建立一致的市場分析流程。",
   "CM Trading Indicators is a modular trading analysis system built around MACD pattern recognition, automatic Fibonacci levels, multi-timeframe monitoring, and alerts.",
 ];
-export const syncStatus: Copy = ["三個指標可獨立運行，核心辨識規則需保持同步。完整跨週期同步仍在驗證階段。", "Each indicator runs independently and shares the same core recognition rules. Full cross-timeframe synchronization is still under validation."];
+export const syncStatus: Copy = ["三個指標可獨立運行，核心辨識規則需保持同步。多週期監控由 CM_MACD_ALERTS 負責。依作者測試，V1.9 已通過本次五週期切換及標籤一致性驗證。", "Each indicator runs independently and shares the same core recognition rules. CM_MACD_ALERTS handles multi-timeframe monitoring. The author reports that V1.9 passed the current five-timeframe switching and label consistency test."];
 export const demo: Copy = ["模擬資料", "SIMULATED DATA"];
 export const officialDocs = {
   editor: "https://www.tradingview.com/pine-script-docs/primer/first-steps/",
