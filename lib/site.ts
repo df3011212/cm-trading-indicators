@@ -41,16 +41,16 @@ const previousIndicators: Indicator[] = [
     ],
     "features": [
       [
-        "自動辨識多空第1點、第2點。",
-        "Automatic bullish and bearish Points 1 and 2."
+        "自動辨識多空第1點與第2點。暫定第1點預設等下一個同向交叉收盤再判定，可切回逐根收盤判定。",
+        "Automatically identifies bullish and bearish Points 1 and 2. Provisional Point 1 waits for the next same-direction crossover by default, with an option to evaluate each bar close."
       ],
       [
-        "自動辨識暫定及正式雙頂、雙底。",
-        "Provisional and confirmed double tops and bottoms."
+        "辨識暫定與正式雙頂／雙底。相似度預設 8%，不同組的合格補充配對可分別顯示。",
+        "Identifies provisional and confirmed double tops and bottoms. The similarity tolerance defaults to 8%, and distinct qualifying supplemental pairs can appear separately."
       ],
       [
-        "MACD 零軸假突破過濾與確認進度。",
-        "Zero-line false breakout filtering and confirmation progress."
+        "MACD 零軸假突破過濾與確認進度，預設連續 6 根收盤確認。",
+        "Filters false zero-line breakouts and shows confirmation progress. Confirmation defaults to six consecutive bar closes."
       ],
       [
         "多空出妖及型態失效提示。",
@@ -69,8 +69,12 @@ const previousIndicators: Indicator[] = [
         "Diagnostic table of the previous valid and latest MACD labels."
       ],
       [
-        "新增「顯示該點失效標籤」開關，預設關閉。",
-        "Added an invalidated-point label visibility toggle, disabled by default."
+        "交叉診斷顯示 MACD 數值、差異百分比及零軸區間狀態，可獨立關閉。",
+        "Optional crossover diagnostics show MACD values, the percentage difference and zero-line zone status."
+      ],
+      [
+        "「顯示該點失效標籤」可獨立開關，預設關閉。",
+        "Invalidated-point labels have their own visibility toggle and are hidden by default."
       ]
     ],
     "sections": [
@@ -148,8 +152,8 @@ const previousIndicators: Indicator[] = [
         "Bullish and bearish FIBO plotting."
       ],
       [
-        "暫定與正式 FIBO 顯示。",
-        "Provisional and confirmed levels."
+        "顯示暫定與正式 FIBO。圖表與跨週期辨識同步 V3.31 的暫定第1點等待規則。",
+        "Shows provisional and confirmed Fibonacci levels. Chart and multi-timeframe recognition use the V3.31 provisional Point 1 waiting rule."
       ],
       [
         "反向 FIBO 0.382～0.702 回調區。",
@@ -253,8 +257,12 @@ const previousIndicators: Indicator[] = [
         "Single notification per event."
       ],
       [
-        "新增來源 K 棒收盤時間及標籤時間診斷資訊。",
-        "Added source-bar close and label timestamp diagnostics."
+        "提供來源 K 棒收盤時間及標籤時間診斷。",
+        "Shows source-bar close and label timestamps for diagnostics."
+      ],
+      [
+        "圖表與跨週期辨識同步 V3.31 的暫定第1點等待規則。雙頂／雙底相似度可調，預設 8%。",
+        "Chart and multi-timeframe recognition use the V3.31 provisional Point 1 waiting rule. Double-top and double-bottom similarity is adjustable and defaults to 8%."
       ]
     ],
     "sections": [
