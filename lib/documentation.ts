@@ -27,7 +27,7 @@ export const guides: Guide[] = [
   ] },
   { id:"auto-fibo", title:["使用 AUTO FIBO","Use AUTO FIBO"], body:[
     ["在價格圖上確認 HH／LL 錨點及投影方向。第 1 點保留上一組，第 2 點與新的有效型態才更新。","On the price chart, check the HH / LL anchors and projection direction. Point 1 retains the previous set. Point 2 and new valid patterns update it."],
-    ["使用反向 FIBO 檢視回調區，搭配多階段 TP 檢視不同價位。出妖時撤銷該型態的 FIBO。","Use reverse FIBO to inspect retracement zones and staged TP levels to examine different prices. Invalidation removes the FIBO for the affected pattern."],
+    ["使用反向 FIBO 檢視 0.382～0.786 回調區，並搭配多階段 TP 檢視不同價位。V2.6 的 MTF 反向 FIBO 新增 1M、3M、5M。出妖時撤銷該型態的 FIBO。","Use reverse FIBO to inspect the 0.382–0.786 retracement zone and staged TP levels to examine different prices. V2.6 adds 1-, 3- and 5-minute intervals to multi-timeframe reverse FIBO. Invalidation removes the FIBO for the affected pattern."],
   ] },
   { id:"multi-timeframe", title:["讀取多週期表格","Read the multi-timeframe table"], body:[
     ["比較 5M／15M／1H／4H／1D 各列的前一次有效標籤與最新 MACD 標籤。藍色底列表示當前週期。","Compare previous valid and latest MACD labels across 5M / 15M / 1H / 4H / 1D. The blue row marks the current timeframe."],

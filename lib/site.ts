@@ -156,12 +156,16 @@ const previousIndicators: Indicator[] = [
         "Bullish and bearish FIBO plotting."
       ],
       [
-        "顯示暫定與正式 FIBO。圖表與跨週期辨識同步 V3.31 的暫定第1點等待規則。",
-        "Shows provisional and confirmed Fibonacci levels. Chart and multi-timeframe recognition use the V3.31 provisional Point 1 waiting rule."
+        "顯示暫定與正式 FIBO。同步 CM_MACD_PATTERN V3.33，修正第1點、第2點與雙頂／雙底的辨識及選取。",
+        "Shows provisional and confirmed Fibonacci levels. Uses CM_MACD_PATTERN V3.33 rules with corrected recognition and selection for Points 1 and 2 and double tops and bottoms."
       ],
       [
-        "反向 FIBO 0.382～0.702 回調區。",
-        "Reverse 0.382–0.702 retracement zone."
+        "MTF 反向 FIBO 支援 1M、3M、5M，回調區間為 0.382～0.786。",
+        "Multi-timeframe reverse FIBO supports 1-, 3- and 5-minute intervals and uses a 0.382–0.786 retracement zone."
+      ],
+      [
+        "共用多空 MACD 辨識引擎與 FIBO 繪圖函式，整合 28 組比例及顯示設定。",
+        "Shares MACD recognition and Fibonacci drawing logic across bullish and bearish setups and consolidates 28 Fibonacci ratios and their display settings."
       ],
       [
         "多階段 TP 目標與延伸比例。",
@@ -442,6 +446,25 @@ const patternUpdates: Release[] = [
 ];
 
 const companionUpdates: Release[] = [
+  {
+    id: "auto-fibo",
+    name: "CM_AUTO_FIBO",
+    version: "V2.6",
+    color: "gold",
+    date: "2026-11-26",
+    title: ["正式更新｜擴充 MTF 反向 FIBO 與精簡程式", "Official update: expanded multi-timeframe reverse FIBO and streamlined code"],
+    highlights: [
+      ["MTF 反向 FIBO 新增 1M、3M、5M 週期，反向區間由 0.382～0.702 擴大至 0.382～0.786。", "Adds 1-, 3- and 5-minute intervals to multi-timeframe reverse FIBO and expands the zone from 0.382–0.702 to 0.382–0.786."],
+      ["同步 CM_MACD_PATTERN V3.33 型態辨識規則。", "Synchronizes pattern recognition with CM_MACD_PATTERN V3.33."],
+      ["多空共用 MACD 型態辨識引擎與 FIBO 繪製函式，整合 28 組 FIBO 比例及顯示設定。", "Shares the MACD recognition engine and FIBO drawing functions across bullish and bearish setups, and consolidates 28 Fibonacci ratios and their display settings."],
+      ["精簡 MTF 重複運算與程式碼，降低編譯 Token 負擔。依版本說明，原始碼容量減少約 5.74%。", "Reduces duplicate MTF calculations and code to lower compiler token usage. The release notes report an approximately 5.74% reduction in source size."],
+    ],
+    fixes: [
+      ["修正第1點、第2點及雙頂／雙底的辨識與選取邏輯。", "Corrects recognition and selection logic for Points 1 and 2 and double tops and bottoms."],
+    ],
+    testing: ["尚無公開驗證紀錄。", "Public test results pending."],
+    compatibility: [{ name: "CM_MACD_PATTERN", version: "V3.33" }],
+  },
   {
     id: "macd-alerts",
     name: "CM_MACD_ALERTS",
