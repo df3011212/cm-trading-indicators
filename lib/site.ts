@@ -57,6 +57,10 @@ const previousIndicators: Indicator[] = [
         "Bullish and bearish invalidation notices."
       ],
       [
+        "15M 專用｜出妖後首個同向暫定第1點標註「上漲反轉」或「下跌反轉」。每次出妖僅標記一次，可獨立開關，預設開啟。",
+        "15M only: labels the first same-direction provisional Point 1 after an invalidation as a bullish or bearish reversal. Labels appear once per invalidation and can be toggled independently. Enabled by default."
+      ],
+      [
         "MACD 水平監控線。",
         "Horizontal MACD monitoring levels."
       ],
@@ -241,6 +245,10 @@ const previousIndicators: Indicator[] = [
         "Provisional pattern alerts."
       ],
       [
+        "15M 上漲／下跌反轉警報與 PATTERN V3.35 標籤同步。兩個方向可各自設鬧鐘，於 15M K 棒收盤確認後觸發，每次出妖僅通知一次。",
+        "15M bullish and bearish reversal alerts match PATTERN V3.35 labels. Each direction can be configured separately and triggers at a confirmed 15M close, once per invalidation."
+      ],
+      [
         "多空出妖警報。",
         "Bullish and bearish invalidation alerts."
       ],
@@ -363,6 +371,23 @@ const patternUpdates: Release[] = [
   {
     id: "macd-pattern",
     name: "CM_MACD_PATTERN",
+    version: "V3.35",
+    color: "blue",
+    date: "2026-11-26",
+    title: ["正式更新｜出妖後首次同向反轉標籤", "Official update: first same-direction reversal labels after invalidation"],
+    highlights: [
+      ["多方出妖後，首個同向暫定第1點標註「上漲反轉」。", "After a bullish invalidation, the first same-direction provisional Point 1 is labeled as a bullish reversal."],
+      ["空方出妖後，首個同向暫定第1點標註「下跌反轉」。", "After a bearish invalidation, the first same-direction provisional Point 1 is labeled as a bearish reversal."],
+      ["每次出妖僅標記一次，僅於 15M 週期顯示。", "Labels appear once per invalidation and are shown only on the 15-minute timeframe."],
+      ["反轉標籤可獨立開關，預設開啟。", "Reversal labels have an independent visibility toggle and are enabled by default."],
+    ],
+    fixes: null,
+    testing: ["尚無公開驗證紀錄。", "Public test results pending."],
+    compatibility: [{ name: "CM_MACD_ALERTS", version: "V2.8" }],
+  },
+  {
+    id: "macd-pattern",
+    name: "CM_MACD_PATTERN",
     version: "V3.31",
     color: "blue",
     date: "2026-11-25",
@@ -417,6 +442,23 @@ const patternUpdates: Release[] = [
 ];
 
 const companionUpdates: Release[] = [
+  {
+    id: "macd-alerts",
+    name: "CM_MACD_ALERTS",
+    version: "V2.8",
+    color: "green",
+    date: "2026-11-26",
+    title: ["正式更新｜新增 15M 反轉警報", "Official update: 15M reversal alerts"],
+    highlights: [
+      ["新增「15M｜上漲反轉」與「15M｜下跌反轉」，與 CM_MACD_PATTERN V3.35 的反轉標籤同步。", "Adds 15M bullish and bearish reversal alerts aligned with CM_MACD_PATTERN V3.35 reversal labels."],
+      ["兩個方向各用獨立的 alertcondition，可個別建立鬧鐘。", "Each direction uses a separate alertcondition so its alert can be configured independently."],
+      ["於 15M K 棒收盤確認後觸發。每次出妖後的首次同向反轉僅通知一次。", "Triggers after a confirmed 15-minute bar close, once for the first same-direction reversal after each invalidation."],
+      ["共用既有辨識引擎，降低程式碼及跨週期運算負擔。", "Reuses the existing recognition engine to reduce code duplication and multi-timeframe computation."],
+    ],
+    fixes: null,
+    testing: ["尚無公開驗證紀錄。", "Public test results pending."],
+    compatibility: [{ name: "CM_MACD_PATTERN", version: "V3.35" }],
+  },
   {
     id: "auto-fibo",
     name: "CM_AUTO_FIBO",
